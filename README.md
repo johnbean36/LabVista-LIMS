@@ -20,6 +20,18 @@ LabVista is a Laboratory modern build of a LIMS(Laboratory Information Managemen
 
 ---
 
+#### Frontend Github
+
+[Frontend Github](https://github.com/johnbean36/LabVista-LIMS)
+
+---
+
+#### Backend Github
+
+[Backend Github](https://github.com/johnbean36/LabVista-LIMS-back)
+
+---
+
 #### Technologies Used
 
 This project is built on a MERN(MongoDB, Express, React, Node.js) stack.  It uses JSX to display the UI(User Interface) and CSS(Cascading Style Sheets) to style the UI.  React using Axios API calls to make requests to the backend server.
@@ -53,6 +65,18 @@ Starting off the project involves writing out the Readme.md, Creating a Trello B
 #### Component Hierarchy Diagram
 
 [Component Diagram](https://lucid.app/lucidchart/090e6109-bac5-46b5-9b96-a62b9fb1e37f/edit?viewport_loc=-11%2C-145%2C3072%2C1623%2C0_0&invitationId=inv_17c93f8b-9b47-4946-8622-44534442127f)
+
+---
+
+### Frontend Heroku
+
+[Frontend Deployed](https://labvista-lims-cef01f29011b.herokuapp.com/)
+
+---
+
+### Backend Heroku
+
+[Backend Deployed](https://labvista-lims-back-5117b5a6c829.herokuapp.com/)
 
 ---
 
