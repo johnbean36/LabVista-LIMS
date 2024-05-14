@@ -10,6 +10,7 @@ function App() {
   const [userName, setUserName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [confirm, setConfirm] = useState(null);
 
   function handleSubmit(e){
     
@@ -24,6 +25,9 @@ function App() {
     }
     else if(input==="password"){
       setPassword(e);
+    }
+    else if(input==="confirm"){
+      setConfirm(e);
     }
   }
 
