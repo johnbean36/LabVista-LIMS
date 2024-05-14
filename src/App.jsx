@@ -71,12 +71,16 @@ function App() {
         const response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/signin", object)
         const { user, token } = response.data;
         setUser(user);
+        console.log(user)
         localStorage.setItem('token', token);
       }catch(err){
         console.log(err);
         if(err.response && err.response.status === 401 || err.response.status === 404){
           setError("Error logging in")
         }
+      }
+      if(user){
+        navigate('home');
       }
     }
   }
