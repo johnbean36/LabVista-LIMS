@@ -1,9 +1,9 @@
-function Signup({setUserName, setUserEmail, setPassword, userName, handleSubmit, handleChange, userEmail, password, confirm, onSubmit}){
+function Signup({setUserName, setUserEmail, setPassword, userName, handleSubmit, handleChange, userEmail, password, confirm, handleSubmit, error}){
     return (
         <div>
             <h1>Sign Up</h1>
             <div>
-                <form>
+                <form onSubmit={(e)=>(handleSubmit(e))} >
                     <div>
                         <div><label for="name">Enter your name: </label></div>
                         <div><input onChange={(e)=>(handleChange(e, "name"))} id="name" value={userName} /></div>
@@ -22,6 +22,9 @@ function Signup({setUserName, setUserEmail, setPassword, userName, handleSubmit,
                     </div>
                     <div>
                         <button type="submit">Submit</button>
+                    </div>
+                    <div>
+                        {error ? (<Error error={error} />) : (null)}
                     </div>
                 </form>
             </div>
