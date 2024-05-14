@@ -31,6 +31,16 @@ function App() {
     }
   }
 
+  function handleSubmit(e, input){
+    e.preventDefault();
+    if(input==="signup"){
+
+    }
+    else if(input==="signin"){
+
+    }
+  }
+
   return (
     <div>
       <header>
@@ -38,15 +48,24 @@ function App() {
       </header>
       <main>
         <Routes>
-          <Route path='/signup' element={ <Signup setUserName={setUserName}
-                                           setUserEmail={setUserEmail} 
-                                           setPassword={setPassword}
-                                           userName={userName}
-                                           userEmail={userEmail}
-                                           password={password}
-                                           handleSubmit={handleSubmit}
-                                           handleChange={handleChange} /> } />
-                                           
+          <Route path='/signup' element={ <Signup 
+                                          setUserName={setUserName}
+                                          setUserEmail={setUserEmail} 
+                                          setPassword={setPassword}
+                                          userName={userName}
+                                          userEmail={userEmail}
+                                          password={password}
+                                          confirm={confirm}
+                                          handleSubmit={handleSubmit}
+                                          handleChange={handleChange} /> } />
+          <Route path='/signin' element={ <Signin 
+                                          setUserEmail={setUserEmail}
+                                          setPassword={setPassword}
+                                          userEmail={userEmail}
+                                          password={password}
+                                          handleSubmit={handleSubmit}
+                                          handleChange={handleChange}
+                                          />} />                                          
         </Routes>
       </main>
     </div>
