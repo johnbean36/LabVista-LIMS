@@ -1,42 +1,40 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
-import Nav from '../components/Nav';
-import Main from '../components/Main';
-import Signin from '../components/Signin'
-import { Routes, Route } from 'react-router-dom';
+import Nav from './components/Nav';
+import Main from './components/Main';
+import Signin from './components/Signin'
+import Signup from './components/Signup'
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState(null)
-  const [userName, setUserName] = useState(null);
-  const [userEmail, setUserEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [confirm, setConfirm] = useState(null);
-  const [error, setError] = useState(null);
-
-  function handleSubmit(e){
-    
-  }
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   function handleChange(e, input){
     if(input === "name"){
-      setUserName(e);
+      setUserName(e.target.value);
     }
     else if(input==="email"){
-      setUserEmail(e);
+      setUserEmail(e.target.value);
     }
     else if(input==="password"){
-      setPassword(e);
+      setPassword(e.target.value);
     }
     else if(input==="confirm"){
-      setConfirm(e);
+      setConfirm(e.target.value);
     }
   }
 
   async function handleSubmit(e, input){
     e.preventDefault();
+    let response;
+
     if(input==="signup"){
       const object = {
         name: userName,
@@ -45,15 +43,14 @@ function App() {
       }
       try{
         if(password===confirm){
-          await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/signup", object);
+          response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/signup", object);
         }
         else{
           setError("Password did not match");
           return;
         }
-
         if(response.status===201){
-          Navigate('/home')
+          navigate('home');
         }
       }catch(err){
         console.log(err)
@@ -61,12 +58,26 @@ function App() {
           setError("A user with that email has already been registered");
         }
         else{
-          setError("An error has occurred");
+          setError(err.response);
         }
       }
     }
     else if(input==="signin"){
-
+      const object = {
+        email: userEmail,
+        password: password
+      }
+      try{
+        const response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/signin", object)
+        const { user, token } = response.data;
+        setUser(user);
+        localStorage.setItem('token', token);
+      }catch(err){
+        console.log(err);
+        if(err.response && err.response.status === 401 || err.response.status === 404){
+          setError("Error logging in")
+        }
+      }
     }
   }
 
@@ -86,7 +97,8 @@ function App() {
                                           password={password}
                                           confirm={confirm}
                                           handleSubmit={handleSubmit}
-                                          handleChange={handleChange} /> } />
+                                          handleChange={handleChange}
+                                          error={error} /> } />
           <Route path='/signin' element={ <Signin 
                                           setUserEmail={setUserEmail}
                                           setPassword={setPassword}
@@ -94,6 +106,7 @@ function App() {
                                           password={password}
                                           handleSubmit={handleSubmit}
                                           handleChange={handleChange}
+                                          error={error}
                                           />} />
           <Route path='/home' element={<Main user={user}/>} />                                  
         </Routes>

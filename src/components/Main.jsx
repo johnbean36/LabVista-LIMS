@@ -6,3 +6,5 @@ function Main({user}){
         </div>
     )
 }
+
+export default Main;

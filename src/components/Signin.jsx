@@ -1,14 +1,14 @@
-function Signin({handleSubmit, userEmail, handleChange, password, handleSubmit}){
+function Signin({userEmail, handleChange, password, handleSubmit}){
     return (
         <div>
             <div>
-                <form onSubmit={(e)=>(handleSubmit(e))} >
+                <form onSubmit={(e)=>(handleSubmit(e), "signin")} >
                     <div>
-                        <div><label for="email">Enter your email: </label></div>
+                        <div><label htmlFor="email">Enter your email: </label></div>
                         <div><input id="email" value={userEmail} onChange={(e)=>(handleChange(e, "email"))} /></div>
                     </div>
                     <div>
-                        <div><label for="password">Enter a password: </label></div>
+                        <div><label htmlFor="password">Enter a password: </label></div>
                         <div><input id="password" value={password} onChange={(e)=>(handleChange(e, "password"))} /></div>
                     </div>
                     <div>
