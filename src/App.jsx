@@ -10,7 +10,7 @@ function App() {
   return (
     <div>
       <header>
-        <Nav />
+        <Nav user={user} />
       </header>
     </div>
   )
