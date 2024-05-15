@@ -2,8 +2,9 @@ import { useState } from 'react';
 import './App.css';
 import Nav from './components/Nav';
 import Main from './components/Main';
-import Signin from './components/Signin'
-import Signup from './components/Signup'
+import Signin from './components/Signin';
+import Signup from './components/Signup';
+import Samplelog from './components/Samplelog';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -14,6 +15,10 @@ function App() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
+  const [custData, setCustData] = useState({});
+  const [commodity, setCommodity] = useState({});
+  const [tests, setTests] = useState({});
+
   const navigate = useNavigate();
 
   function handleChange(e, input){
@@ -92,6 +97,15 @@ function App() {
       </header>
       <main>
         <Routes>
+          <Route path='/samplelogin' element={ <SampleLog 
+                                          setCustData={setCustData}
+                                          setTests={setTests}
+                                          setCommodity={setCommodity}
+                                          commodity={commodity}
+                                          tests={tests}
+                                          custData={custData}
+                                          error={error}
+                                          />} />
           <Route path='/signup' element={ <Signup 
                                           setUserName={setUserName}
                                           setUserEmail={setUserEmail} 
