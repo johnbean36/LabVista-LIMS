@@ -4,7 +4,7 @@ import Nav from './components/Nav';
 import Main from './components/Main';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
-import Samplelog from './components/Samplelog';
+import SampleLog from './components/Samplelog';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -74,7 +74,6 @@ function App() {
       }
       try{
         response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/signin", object)
-        console.log(response)
         const { user, token } = response.data;
         setUser(user);
         localStorage.setItem('token', token);
