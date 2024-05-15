@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import axios from 'axios';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import '../App.css';
 
-function SampleLog({setCustData, setTests, setCommodity, tests, custData, commodity, error, handleSubmit, handleChange}){
+function SampleLog({setCustData, setTests, setCommodity, tests, custData, commodity, error, handleSubmit, handleChange, startDate, setStartDate}){
     
     useEffect(()=>{
         const token = localStorage.getItem('token');
@@ -25,17 +28,21 @@ function SampleLog({setCustData, setTests, setCommodity, tests, custData, commod
             setCustData(temp.data);
             setCommodity(temp1.data);
             setTests(temp2.data);
-            console.log(temp1)
         }
         fetchData();
     },[]);
-    if(commodity.length){
+
+    useEffect(() => {
+        console.log("Selected date:", startDate);
+      }, [startDate]);
+
+    if(commodity.length && custData.length){
 
     
     return (
         <div>
             <form onSubmit={(e)=>(handleSubmit(e, "samplelogin"))}>
-                <div>
+                <div className="loginfields">
                     <div className="ccode">
                         <label htmlFor="ccode">Commodity Code</label>
                         <select onChange={(e)=>(handleChange(e, "ccode"))} name="ccode" id="ccode">
@@ -43,8 +50,16 @@ function SampleLog({setCustData, setTests, setCommodity, tests, custData, commod
                         {commodity.map((comm)=> (<option key={comm._id} text={comm.desc} value={comm.code}>{comm.code}-{comm.desc}</option>))}
                         </select>
                     </div>
-                    <div className="cdesc">
-                        <label htmlFor="cdesc">Commodity Description</label>
+                    <div className="ccode">
+                        <label htmlFor="dateselect">Select a Login Date</label>
+                        <DatePicker selected={startDate} id="dateselect" onChange={(date)=> setStartDate(date)} placeholderText="Select a date" dateFormat="yyyy-MM-dd" />
+                    </div>
+                    <div className="ccode">
+                        <label htmlFor="custcode">Customer Code</label>
+                        <select onChange={(e)=>(handleChange(e, "custcode"))} name="custcode" id="custcode">
+                            <option value="default">--Select a Customer Code</option>
+                            {custData.map((cust)=> (<option key={cust._id} value={cust.code}>{cust.code}</option>))}
+                        </select>
                     </div>
                 </div>
                 <div>

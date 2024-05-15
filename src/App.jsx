@@ -20,7 +20,7 @@ function App() {
   const [tests, setTests] = useState({});
   const [comSelected, setcomSelected] = useState("");
   const [cusSelected, setcusSelected] = useState('');
-  const [cdesc, setCdesc] = useState("");
+  const [startDate, setStartDate] = useState(null);
 
   const navigate = useNavigate();
 
@@ -117,8 +117,9 @@ function App() {
                                           custData={custData}
                                           handleSubmit={handleSubmit}
                                           handleChange={handleChange}
-                                          cdesc={cdesc}
                                           error={error}
+                                          startDate={startDate}
+                                          setStartDate={setStartDate}
                                           />} />
           <Route path='/signup' element={ <Signup 
                                           setUserName={setUserName}
