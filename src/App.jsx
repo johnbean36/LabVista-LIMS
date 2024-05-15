@@ -68,26 +68,26 @@ function App() {
         password: password
       }
       try{
-        const response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/signin", object)
+        response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/signin", object)
+        console.log(response)
         const { user, token } = response.data;
         setUser(user);
-        console.log(user)
         localStorage.setItem('token', token);
       }catch(err){
         console.log(err);
-        if(err.response && err.response.status === 401 || err.response.status === 404){
+        if(response && response.status === 401 || response.status === 404){
           setError("Error logging in")
         }
       }
-      if(user){
+      if(response.status===200){
         navigate('home');
       }
     }
   }
 
   return (
-    <div>
-      <header>
+    <div className="body">
+      <header className="nav">
         <Nav user={user} />
       </header>
       <main>
