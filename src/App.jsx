@@ -16,8 +16,11 @@ function App() {
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
   const [custData, setCustData] = useState({});
-  const [commodity, setCommodity] = useState({});
+  const [commodity, setCommodity] = useState([]);
   const [tests, setTests] = useState({});
+  const [comSelected, setcomSelected] = useState("");
+  const [cusSelected, setcusSelected] = useState('');
+  const [cdesc, setCdesc] = useState("");
 
   const navigate = useNavigate();
 
@@ -33,6 +36,12 @@ function App() {
     }
     else if(input==="confirm"){
       setConfirm(e.target.value);
+    }
+    else if(input==="ccode"){
+      setcomSelected(e.target.value);
+      console.log(e.target.text);
+      //const selectedDescription = e.target.selectedOptions[0].getAttribute('data-desc');
+
     }
   }
 
@@ -87,6 +96,9 @@ function App() {
         navigate('home');
       }
     }
+    else if(input==="samplelogin"){
+      console.log("");
+    }
   }
 
   return (
@@ -103,6 +115,9 @@ function App() {
                                           commodity={commodity}
                                           tests={tests}
                                           custData={custData}
+                                          handleSubmit={handleSubmit}
+                                          handleChange={handleChange}
+                                          cdesc={cdesc}
                                           error={error}
                                           />} />
           <Route path='/signup' element={ <Signup 
