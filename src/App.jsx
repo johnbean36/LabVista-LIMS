@@ -39,9 +39,9 @@ function App() {
     }
     else if(input==="ccode"){
       setcomSelected(e.target.value);
-      console.log(e.target.text);
-      //const selectedDescription = e.target.selectedOptions[0].getAttribute('data-desc');
-
+    }
+    else if(input==="custcode"){
+      setcusSelected(e.target.value)
     }
   }
 
