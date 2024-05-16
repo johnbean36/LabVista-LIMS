@@ -97,7 +97,24 @@ function App() {
       }
     }
     else if(input==="samplelogin"){
-      console.log("");
+      data = [{
+        cust: custData,
+        commodity: commodity,
+        date: startDate,
+        tests: tests
+      }]
+      let response;
+      try{
+        const token = localStorage.getItem('token');
+        response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com", {
+          headers: {
+              'Authorization': `Bearer ${token}`
+          }
+      });
+      }catch(err){
+        console.log(err);
+        console.log(response)
+      }
     }
   }
 

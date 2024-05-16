@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Select } from 'antd';
+import { Select, Space, Spin } from 'antd';
 const { Option } =  Select;
 import '../App.css';
 let tOptions;
@@ -32,7 +32,6 @@ function SampleLog({setCustData, setTests, setCommodity, tests, custData, commod
             setCommodity(temp1.data);
             setTests(temp2.data);
             const data = temp2.data
-            console.log(tests);
             tOptions = data.map((test)=>({
                 label: test.name,
                 value: test._id
@@ -49,8 +48,8 @@ function SampleLog({setCustData, setTests, setCommodity, tests, custData, commod
     function iHandleChange(value){
         setSelectedTests(value);
     }
-
-    if(commodity.length && custData.length && tests.length){
+    console.log(tOptions)
+    if(commodity.length && custData.length && tOptions.length){
 
     
     return (
@@ -78,17 +77,18 @@ function SampleLog({setCustData, setTests, setCommodity, tests, custData, commod
                     <div>
                         <Select
                             mode="multiple"
-                            disabled
-                            style={{ width: '100%'}}
+                            allowClear
+                            style={{ width: '100%', minWidth: '300px', maxWidth: '300px'}}
                             placeholder="Please select"
                             defaultValue={[]}
                             options={tOptions}
+                            value={selectedTests}
                             onChange={iHandleChange}
                             />
                     </div>
                 </div>
                 <div>
-
+                <button type="submit">Submit</button>
                 </div>
             </form>
         </div>
