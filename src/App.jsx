@@ -7,6 +7,7 @@ import Signup from './components/Signup';
 import SampleLog from './components/Samplelog';
 import Overdue from './components/Overdue';
 import Delete from './components/Delete';
+import Lookup from './components/Lookup';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -29,6 +30,7 @@ function App() {
   const [ids, setIds] = useState([])
   const [idSelect, setidSelect] = useState(0)
   const [loginResponse, setLoginResponse] = useState({});
+  const [viewSamples, setViewSamples] = useState([]);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -61,7 +63,10 @@ function App() {
       setcusSelected(e.target.value);
     }
     else if(input==="delete"){
-      setidSelect(e.target.value)
+      setidSelect(e.target.value);
+    }
+    else if(input==="lookup"){
+      setidSelect(e.target.value);
     }
   }
 
@@ -172,6 +177,26 @@ function App() {
       console.log(err);
     }
   }
+  else if(input==="lookup"){
+    try{
+      let data = [{
+        sampleid: idSelect
+      }]
+      const token = localStorage.getItem('token');
+      response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/samples/viewsamples", data, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }})
+      if(response.data){
+        console.log(response.data);
+        setViewSamples(response.data);
+      }
+
+    }catch(err){
+      console.log(err);
+    }
+  }
+
 }
 
   return (
@@ -232,6 +257,13 @@ function App() {
                                           ids={ids}
                                           setIds={setIds}
                                         />} />
+          <Route path='/lookup' element={ <Lookup
+                                          handleSubmit={handleSubmit}
+                                          handleChange={handleChange}
+                                          ids={ids}
+                                          setIds={setIds}
+                                          viewSamples={viewSamples}
+          /> } />
           <Route path='/home' element={<Main user={user}/>} />                                  
         </Routes>
       </main>
