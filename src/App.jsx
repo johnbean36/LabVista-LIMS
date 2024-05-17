@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Nav from './components/Nav';
 import Main from './components/Main';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
 import SampleLog from './components/Samplelog';
+import Overdue from './components/Overdue';
+import Delete from './components/Delete';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -21,9 +23,20 @@ function App() {
   const [comSelected, setcomSelected] = useState("");
   const [cusSelected, setcusSelected] = useState('');
   const [startDate, setStartDate] = useState(null);
+  const [overDue, setOverDue] = useState("")
+  const [dueList, setDueList] = useState([]);
+  const [selectedTests, setSelectedTests] = useState([]);
+  const [ids, setIds] = useState([])
+  const [idSelect, setidSelect] = useState(0)
 
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!user) {
+        navigate('/home');
+    }
+}, [user]);
 
+  //handlesChanges
   function handleChange(e, input){
     if(input === "name"){
       setUserName(e.target.value);
@@ -34,6 +47,9 @@ function App() {
     else if(input==="password"){
       setPassword(e.target.value);
     }
+    else if(input==="overdue"){
+      setOverDue(e.target.value);
+    }
     else if(input==="confirm"){
       setConfirm(e.target.value);
     }
@@ -41,10 +57,14 @@ function App() {
       setcomSelected(e.target.value);
     }
     else if(input==="custcode"){
-      setcusSelected(e.target.value)
+      setcusSelected(e.target.value);
+    }
+    else if(input==="delete"){
+      setidSelect(e.target.value)
     }
   }
 
+  //Handles Submit requests
   async function handleSubmit(e, input){
     e.preventDefault();
     let response;
@@ -97,26 +117,65 @@ function App() {
       }
     }
     else if(input==="samplelogin"){
-      data = [{
-        cust: custData,
-        commodity: commodity,
+      console.log(custData);
+      let sampleData = [{
+        cust: cusSelected,
+        commodity: comSelected,
         date: startDate,
-        tests: tests
+        tests: selectedTests
       }]
       let response;
       try{
         const token = localStorage.getItem('token');
-        response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com", {
+        response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/samples/register", {sampleData}, {
           headers: {
               'Authorization': `Bearer ${token}`
           }
       });
+      if(response.status===201){
+        navigate('/home');
+      }
       }catch(err){
         console.log(err);
         console.log(response)
       }
     }
+    else if(input==="overdue"){
+      let response;
+      try{
+        let data = {
+          testName: overDue
+        }
+        const token = localStorage.getItem('token');
+        response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/samples/overduelist", data, {
+          headers: {
+              'Authorization': `Bearer ${token}`
+          }
+      });
+      setDueList(response.data);
+      }catch(err){
+        console.log(err);
+      }
+    }
+    else if(input==="delete"){
+      try{
+        let data = [{
+          sampleid: idSelect
+        }]
+        const token = localStorage.getItem('token');
+        response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/samples/deletesamples", data, {
+          headers: {
+              'Authorization': `Bearer ${token}`
+          }
+      });
+      if(response.status===200){
+        navigate('/home')
+      }
+    }catch(err){
+      console.log(err);
+    }
   }
+}
 
   return (
     <div className="body">
@@ -137,6 +196,8 @@ function App() {
                                           error={error}
                                           startDate={startDate}
                                           setStartDate={setStartDate}
+                                          setSelectedTests={setSelectedTests}
+                                          selectedTests={selectedTests}
                                           />} />
           <Route path='/signup' element={ <Signup 
                                           setUserName={setUserName}
@@ -158,11 +219,26 @@ function App() {
                                           handleChange={handleChange}
                                           error={error}
                                           />} />
+          <Route path='/overdue' element={ <Overdue 
+                                          handleSubmit={handleSubmit}
+                                          overDue={overDue}
+                                          setOverDue={setOverDue}
+                                          setTests={setTests}
+                                          tests={tests}
+                                          handleChange={handleChange}
+                                          dueList={dueList}
+                                            />} />
+          <Route path='/delete' element={ <Delete
+                                          handleSubmit={handleSubmit}
+                                          handleChange={handleChange}
+                                          ids={ids}
+                                          setIds={setIds}
+                                        />} />
           <Route path='/home' element={<Main user={user}/>} />                                  
         </Routes>
       </main>
     </div>
-  )
-}
+  );
 
-export default App
+}
+export default App;

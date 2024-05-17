@@ -48,7 +48,6 @@ function SampleLog({setCustData, setTests, setCommodity, tests, custData, commod
     function iHandleChange(value){
         setSelectedTests(value);
     }
-    console.log(tOptions)
     if(commodity.length && custData.length && tOptions.length){
 
     
