@@ -28,6 +28,7 @@ function App() {
   const [selectedTests, setSelectedTests] = useState([]);
   const [ids, setIds] = useState([])
   const [idSelect, setidSelect] = useState(0)
+  const [loginResponse, setLoginResponse] = useState({});
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -117,7 +118,6 @@ function App() {
       }
     }
     else if(input==="samplelogin"){
-      console.log(custData);
       let sampleData = [{
         cust: cusSelected,
         commodity: comSelected,
@@ -132,12 +132,9 @@ function App() {
               'Authorization': `Bearer ${token}`
           }
       });
-      if(response.status===201){
-        navigate('/home');
-      }
+      setLoginResponse(response.data)
       }catch(err){
         console.log(err);
-        console.log(response)
       }
     }
     else if(input==="overdue"){
@@ -169,7 +166,7 @@ function App() {
           }
       });
       if(response.status===200){
-        navigate('/home')
+        navigate('home');
       }
     }catch(err){
       console.log(err);
@@ -198,6 +195,7 @@ function App() {
                                           setStartDate={setStartDate}
                                           setSelectedTests={setSelectedTests}
                                           selectedTests={selectedTests}
+                                          loginResponse={loginResponse}
                                           />} />
           <Route path='/signup' element={ <Signup 
                                           setUserName={setUserName}

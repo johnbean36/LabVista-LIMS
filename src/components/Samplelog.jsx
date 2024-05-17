@@ -7,7 +7,7 @@ const { Option } =  Select;
 import '../App.css';
 let tOptions;
 
-function SampleLog({setCustData, setTests, setCommodity, tests, custData, commodity, error, handleSubmit, handleChange, startDate, setStartDate, selectedTests, setSelectedTests}){
+function SampleLog({setCustData, setTests, setCommodity, tests, loginResponse, custData, commodity, error, handleSubmit, handleChange, startDate, setStartDate, selectedTests, setSelectedTests}){
 
     useEffect(()=>{
         const token = localStorage.getItem('token');
@@ -90,6 +90,10 @@ function SampleLog({setCustData, setTests, setCommodity, tests, custData, commod
                 <button type="submit">Submit</button>
                 </div>
             </form>
+            <div>
+                {console.log(loginResponse)}
+                <div>{loginResponse.length ? (<div>{loginResponse.map((sample)=>(<div key={sample.sampleid._id}>Sample id(s) logged in: {sample.sampleid.sampleid}</div>))}</div>): (<div></div>)}</div>
+            </div>
         </div>
     )
 }
