@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import '../App.css';
 
-function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResult, setTestResult, handleChangeTests}) {
+function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResult, handleChangeTests, setViewSamples, data}) {
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
@@ -15,6 +15,18 @@ function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResu
     };
     fetchData();
   }, [setIds]);
+
+  useEffect(()=>{
+    const fetchData = ()=>{
+      let vSamples = viewSamples;
+      let Obj = {};
+      vSamples.forEach((test)=>{
+        Obj[test.name] = test.result;
+      })
+      setViewSamples(Obj);
+    };
+    fetchData()
+  },[data])
 
   if (ids.length) {
     return (

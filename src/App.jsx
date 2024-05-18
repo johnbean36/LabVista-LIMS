@@ -33,6 +33,7 @@ function App() {
   const [viewSamples, setViewSamples] = useState([]);
   const [testResult, setTestResult] = useState({});
   const [lookupResult, setLookupResult] = useState("")
+  const [data, setData] = useState(false)
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -200,8 +201,8 @@ function App() {
             'Authorization': `Bearer ${token}`
         }})
       if(response.data){
-        console.log(response.data);
         setViewSamples(response.data);
+        setData(!data);
       }
 
     }catch(err){
@@ -279,6 +280,9 @@ function App() {
                                           testResult={testResult}
                                           handleChangeTests={handleChangeTests}
                                           setLookupResult={setLookupResult}
+                                          setViewSamples={setViewSamples}
+                                          setTestResult={setTestResult}
+                                          data={data}
           /> } />
           <Route path='/home' element={<Main user={user}/>} />                                  
         </Routes>
