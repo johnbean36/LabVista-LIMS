@@ -43,7 +43,16 @@ function App() {
 }, [user]);
 
   function handleChangeTests(e){
-    setTestResult({...testResult, [e.target.name]: e.target.value})
+    const sampleid = e.target.dataset.id;
+    const name = e.target.name;
+    const value = e.target.value;
+    setTestResult((currentState)=>({
+      ...currentState, [sampleid]:{
+        ...currentState[sampleid],
+        [name]: value
+      }
+    }));
+    //setTestResult({...testResult, sampleid:{[e.target.name]: e.target.value}})
   }
 
   //handlesChanges
@@ -209,8 +218,19 @@ function App() {
       console.log(err);
     }
   }
-
-
+  else if(input==="update"){
+    const token = localStorage.getItem('token');
+    response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/samples/update", testResult, {
+      headers: {
+          'Authorization': `Bearer ${token}`
+      }})
+  }
+  if(response.status===200){
+    setError("Sample updated")
+  }
+  else{
+    setError("Problem submitting sample")
+  }
 }
 
   return (
@@ -282,7 +302,6 @@ function App() {
                                           setLookupResult={setLookupResult}
                                           setViewSamples={setViewSamples}
                                           setTestResult={setTestResult}
-                                          data={data}
           /> } />
           <Route path='/home' element={<Main user={user}/>} />                                  
         </Routes>
