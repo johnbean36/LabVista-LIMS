@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import '../App.css';
 
-function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples }) {
+function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResult, setTestResult, handleChangeTests}) {
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
@@ -39,9 +39,10 @@ function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples }) {
               <div>
                 {viewSamples.map((sample) => (
                   <div key={sample.sampleid._id}>
-                    <form>
-                    <div>Sample Id: {sample.sampleid.sampleid}</div>
-                    <div></div>
+                    <form onSubmit={(e)=>(handleSubmit(e, "update"))}>
+                    <div className="margin">Sample Id: {sample.sampleid.sampleid}</div>
+                    <div>{sample.tests.map((test)=>(<div key={test._id}><div></div><div>{test.name}</div><input name={test.name} onChange={handleChangeTests} value={testResult[test.name]} /><div></div></div>))}</div>
+                    <button type="submit">Submit</button>
                     </form>
                   </div>
                 ))}

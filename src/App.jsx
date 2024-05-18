@@ -31,6 +31,8 @@ function App() {
   const [idSelect, setidSelect] = useState(0)
   const [loginResponse, setLoginResponse] = useState({});
   const [viewSamples, setViewSamples] = useState([]);
+  const [testResult, setTestResult] = useState({});
+  const [lookupResult, setLookupResult] = useState("")
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -38,6 +40,10 @@ function App() {
         navigate('/home');
     }
 }, [user]);
+
+  function handleChangeTests(e){
+    setTestResult({...testResult, [e.target.name]: e.target.value})
+  }
 
   //handlesChanges
   function handleChange(e, input){
@@ -49,6 +55,9 @@ function App() {
     }
     else if(input==="password"){
       setPassword(e.target.value);
+    }
+    else if(input==="update"){
+
     }
     else if(input==="overdue"){
       setOverDue(e.target.value);
@@ -67,6 +76,9 @@ function App() {
     }
     else if(input==="lookup"){
       setidSelect(e.target.value);
+    }
+    else if(input==="update"){
+      setLookupResult(e.target.value);
     }
   }
 
@@ -197,6 +209,7 @@ function App() {
     }
   }
 
+
 }
 
   return (
@@ -263,6 +276,9 @@ function App() {
                                           ids={ids}
                                           setIds={setIds}
                                           viewSamples={viewSamples}
+                                          testResult={testResult}
+                                          handleChangeTests={handleChangeTests}
+                                          setLookupResult={setLookupResult}
           /> } />
           <Route path='/home' element={<Main user={user}/>} />                                  
         </Routes>
