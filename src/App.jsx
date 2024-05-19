@@ -33,7 +33,6 @@ function App() {
   const [viewSamples, setViewSamples] = useState([]);
   const [testResult, setTestResult] = useState({});
   const [lookupResult, setLookupResult] = useState("")
-  const [data, setData] = useState(false)
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -52,7 +51,6 @@ function App() {
         [name]: value
       }
     }));
-    //setTestResult({...testResult, sampleid:{[e.target.name]: e.target.value}})
   }
 
   //handlesChanges
@@ -210,8 +208,26 @@ function App() {
             'Authorization': `Bearer ${token}`
         }})
       if(response.data){
-        setViewSamples(response.data);
-        setData(!data);
+        const samples = response.data
+
+        console.log(response.data);
+        let object = {};
+        samples.forEach((sample) => {
+          const sampleid = sample.sampleid.sampleid;
+          const tests = sample.tests;
+          tests.forEach((test) => {
+            const name = test.name;
+            const result = test.result;
+            object = {
+              ...object,
+              [sampleid]: {
+                ...object[sampleid],
+                [name]: result
+              }
+            };
+          });
+        });
+        setTestResult(object);
       }
 
     }catch(err){
@@ -220,7 +236,7 @@ function App() {
   }
   else if(input==="update"){
     const token = localStorage.getItem('token');
-    response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/samples/update", testResult, {
+    response = await axios.post("https://labvista-lims-back-5117b5a6c829.herokuapp.com/samples/updatesamples", testResult, {
       headers: {
           'Authorization': `Bearer ${token}`
       }})
