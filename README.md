@@ -89,3 +89,5 @@ Starting off the project involves writing out the Readme.md, Creating a Trello B
 ---
 
 #### Credits
+
+Copyright © 2024 John Bass. All rights reserved. No part of the LabVista LIMS project, including its code, documentation, or any associated materials, may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner.
