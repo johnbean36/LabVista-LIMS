@@ -82,3 +82,8 @@
   display: flex;
   justify-content: center;
 }
+
+.delete {
+  display: flex;
+  flex-direction: column;
+}

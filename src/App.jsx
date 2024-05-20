@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import Nav from './components/Nav';
+import Navbar from './components/Navbar';
 import Main from './components/Main';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
@@ -124,6 +124,7 @@ function App() {
       return;
     }
     else if(input==="signin"){
+      response={};
       const object = {
         email: userEmail,
         password: password
@@ -193,12 +194,16 @@ function App() {
           headers: {
               'Authorization': `Bearer ${token}`
           }
-      });
-      if(response.status===200){
-        navigate('home');
+      });  
+      if(response.response.status===200){
+        navigate('/home');
       }
+
     }catch(err){
       console.log(err);
+      if(err.response.status===404){
+        setError("Sample not found")
+      }
     }
     return;
   }
@@ -244,7 +249,7 @@ function App() {
   return (
     <div className="body">
       <header className="nav">
-        <Nav user={user} />
+        <Navbar user={user} />
       </header>
       <main>
         <Routes>
@@ -298,6 +303,7 @@ function App() {
                                           handleChange={handleChange}
                                           ids={ids}
                                           setIds={setIds}
+                                          error={error}
                                         />} />
           <Route path='/lookup' element={ <Lookup
                                           handleSubmit={handleSubmit}

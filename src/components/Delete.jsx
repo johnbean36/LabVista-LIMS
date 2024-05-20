@@ -4,9 +4,10 @@ import '../App.css';
 import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, InputGroup} from 'react-bootstrap';
+import Error from './Error'
 let response;
 
-function DeleteSample({ids, setIds, handleSubmit, handleChange}){
+function DeleteSample({ids, setIds, handleSubmit, handleChange, error}){
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,25 +22,28 @@ function DeleteSample({ids, setIds, handleSubmit, handleChange}){
         fetchData();
     }, []);
     if(ids.length){
-    return (
-        <div className="select">
-            <Form onSubmit={(e) => handleSubmit(e, "delete")}>
-                <div className="ccode">
-                    <Form.Label htmlFor="delete">Select a test to Delete</Form.Label>
-                    <Form.Select onChange={(e) => handleChange(e, "delete")} name="delete" id="delete">
-                        <option value="default">-Select a Test-</option>
-                        {ids.map((id) => <option key={id._id} value={id.sampleid}>{id.sampleid}</option>)}
-                    </Form.Select>
+        return (
+            <div className="delete">
+                <div className="select">
+                    <Form onSubmit={(e) => handleSubmit(e, "delete")}>
+                        <div className="ccode">
+                            <Form.Label htmlFor="delete">Select a test to Delete</Form.Label>
+                            <Form.Select onChange={(e) => handleChange(e, "delete")} name="delete" id="delete">
+                                <option value="default">-Select a Test-</option>
+                                {ids.map((id) => <option key={id._id} value={id.sampleid}>{id.sampleid}</option>)}
+                            </Form.Select>
+                        </div>
+                        <div>
+                            <Button variant="primary" type="submit">Submit</Button>
+                        </div>
+                    </Form>
                 </div>
-                <div>
-                    <Button variant="primary" type="submit">Submit</Button>
+                <div class="margin">
+                    <Error error={error} />
                 </div>
-            </Form>
-            <div>
-            
             </div>
-        </div>
-    )
+        );
+        
     }
     else{
         return (
