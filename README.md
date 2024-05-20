@@ -89,3 +89,6 @@ Starting off the project involves writing out the Readme.md, Creating a Trello B
 ---
 
 #### Credits
+React Bootstrap guide: https://react-bootstrap.netlify.app/docs/forms/overview
+   
+The multi select menu was from Ant Design, Glenn told me to use this for my multiselect form

@@ -44,15 +44,16 @@
   grid-template-rows: 0.2fr 1fr;
   height: 100vh;
   background-color: #1E1E1E;
+  color: #b3e5fc;
 }
 
 .navstyle {
   display: flex;
-  margin: 5vmin;
+
 }
 
 .log {
-  margin: 4vmin;
+  margin: 3vmin;
 }
 
 .navbar {
@@ -74,5 +75,10 @@
 }
 
 .margin {
-  margin-top: 4vmin;
+  margin-top: 5.2vmin;
+}
+
+.select {
+  display: flex;
+  justify-content: center;
 }

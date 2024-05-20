@@ -121,6 +121,7 @@ function App() {
           setError(err.response);
         }
       }
+      return;
     }
     else if(input==="signin"){
       const object = {
@@ -141,6 +142,7 @@ function App() {
       if(response.status===200){
         navigate('home');
       }
+      return;
     }
     else if(input==="samplelogin"){
       let sampleData = [{
@@ -161,6 +163,7 @@ function App() {
       }catch(err){
         console.log(err);
       }
+      return;
     }
     else if(input==="overdue"){
       let response;
@@ -178,6 +181,7 @@ function App() {
       }catch(err){
         console.log(err);
       }
+      return;
     }
     else if(input==="delete"){
       try{
@@ -196,6 +200,7 @@ function App() {
     }catch(err){
       console.log(err);
     }
+    return;
   }
   else if(input==="lookup"){
     try{
@@ -208,12 +213,17 @@ function App() {
             'Authorization': `Bearer ${token}`
         }})
       if(response.data){
-        setViewSamples(response.data);
+        if(response.data.includes(null)){
+          setError("Cannot find sample")
+          return;
+        }
+        const responsedata = response.data;
+        setViewSamples(responsedata);
       }
-
     }catch(err){
       console.log(err);
     }
+    return;
   }
   else if(input==="update"){
     const token = localStorage.getItem('token');
@@ -223,7 +233,8 @@ function App() {
       }})
   }
   if(response.status===200){
-    setError("Sample updated")
+    setError("Result updated successfully")
+    setViewSamples([]);
   }
   else{
     setError("Problem submitting sample")
@@ -299,6 +310,7 @@ function App() {
                                           setLookupResult={setLookupResult}
                                           setViewSamples={setViewSamples}
                                           setTestResult={setTestResult}
+                                          error={error}
           /> } />
           <Route path='/home' element={<Main user={user}/>} />                                  
         </Routes>

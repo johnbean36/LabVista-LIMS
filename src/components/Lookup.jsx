@@ -1,8 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import '../App.css';
+import Error from "./Error"
+import Button from 'react-bootstrap/Button'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Form, InputGroup} from 'react-bootstrap';
 
-function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResult, setTestResult, handleChangeTests, setViewSamples, }) {
+function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResult, setTestResult, handleChangeTests, setViewSamples, error}) {
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
@@ -19,7 +23,6 @@ function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResu
   useEffect(()=>{
     const fetchData = ()=>{
       let Obj = {};
-      console.log(viewSamples)
       let vSamples = viewSamples;
       const testR = testResult;
       Obj = {
@@ -39,9 +42,9 @@ function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResu
             }
           }
         })
+        setTestResult(Obj);
       })
-      console.log(Obj);
-      setTestResult(Obj);
+
     };
     fetchData()
   },[viewSamples])
@@ -49,39 +52,59 @@ function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResu
   if (ids.length) {
     return (
       <div>
-        <div>
-          <form onSubmit={(e) => handleSubmit(e, "lookup")}>
+        <div className="select">
+          <Form className="margin" onSubmit={(e) => handleSubmit(e, "lookup")}>
             <div className="ccode">
-              <label htmlFor="lookup">Select a test to Lookup</label>
-              <select onChange={(e) => handleChange(e, "lookup")} name="lookup" id="lookup">
+              <Form.Label className="formlabel" htmlFor="lookup">Select a test to Lookup</Form.Label>
+              <Form.Select onChange={(e) => handleChange(e, "lookup")} name="lookup" id="lookup">
                 <option value="default">-Select a Test-</option>
                 {ids.map((id) => (
                   <option key={id._id} value={id.sampleid}>{id.sampleid}</option>
                 ))}
-              </select>
+              </Form.Select>
             </div>
             <div>
-              <button type="submit">Submit</button>
+              <Button variant="primary" type="submit">Submit</Button>
             </div>
-          </form>
-          <div>
-            {viewSamples && (
+          </Form>
+        <div>
+          {
+            viewSamples.length > 0 && (
               <div>
                 {viewSamples.map((sample) => (
                   <div key={sample.sampleid._id}>
-                    <form onSubmit={(e)=>(handleSubmit(e, "update"))}>
-                    <div className="margin">Sample Id: {sample.sampleid.sampleid}</div>
-                    <div>{sample.tests.map((test)=>(<div key={test._id}><div></div><div>{test.name}</div><input name={test.name} data-id={sample.sampleid.sampleid} onChange={handleChangeTests} value={testResult[sample.sampleid.sampleid][test.name]} /><div></div></div>))}</div>
-                    <button type="submit">Submit</button>
-                    </form>
+                    <Form onSubmit={(e) => handleSubmit(e, "update")}>
+                      <div className="margin">Sample Id: {sample.sampleid.sampleid}</div>
+                      <div>
+                        {sample.tests.map((test) => (
+                          <div key={test._id}>
+                            <div>{test.name}</div>
+                            <InputGroup>
+                            <Form.Control
+                              name={test.name}
+                              data-id={sample.sampleid.sampleid}
+                              onChange={handleChangeTests}
+                              value={testResult[sample.sampleid.sampleid]?.[test.name] || ''}
+                            />
+                            <Button variant="primary" type="submit">Submit</Button>
+                            </InputGroup>
+                          </div>
+                        ))}
+                      </div>
+                      
+                    </Form>
                   </div>
                 ))}
               </div>
-            )}
+            )
+          }
+          </div>
+          <div className="margin">
+                <Error error={error} />
           </div>
         </div>
       </div>
-    );
+    )
   } else {
     return <div>loading</div>;
   }

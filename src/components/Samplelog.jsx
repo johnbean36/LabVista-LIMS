@@ -41,10 +41,6 @@ function SampleLog({setCustData, setTests, setCommodity, tests, loginResponse, c
         fetchData();
     },[]);
 
-    useEffect(() => {
-        console.log("Selected date:", startDate);
-      }, [startDate]);
-
     function iHandleChange(value){
         setSelectedTests(value);
     }
@@ -53,6 +49,7 @@ function SampleLog({setCustData, setTests, setCommodity, tests, loginResponse, c
     
     return (
         <div>
+            <div className="margin">
             <form onSubmit={(e)=>(handleSubmit(e, "samplelogin"))}>
                 <div className="loginfields">
                     <div className="ccode">
@@ -73,7 +70,7 @@ function SampleLog({setCustData, setTests, setCommodity, tests, loginResponse, c
                             {custData.map((cust)=> (<option key={cust._id} value={cust.code}>{cust.code}</option>))}
                         </select>
                     </div>
-                    <div>
+                    <div className="margin">
                         <Select
                             mode="multiple"
                             allowClear
@@ -90,8 +87,8 @@ function SampleLog({setCustData, setTests, setCommodity, tests, loginResponse, c
                 <button type="submit">Submit</button>
                 </div>
             </form>
+            </div>
             <div>
-                {console.log(loginResponse)}
                 <div>{loginResponse.length ? (<div>{loginResponse.map((sample)=>(<div key={sample.sampleid._id}>Sample id(s) logged in: {sample.sampleid.sampleid}</div>))}</div>): (<div></div>)}</div>
             </div>
         </div>

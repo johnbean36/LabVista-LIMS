@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import axios from 'axios';
 import '../App.css';
+import Button from 'react-bootstrap/Button'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Form, InputGroup} from 'react-bootstrap';
 let response;
 
 function DeleteSample({ids, setIds, handleSubmit, handleChange}){
@@ -19,19 +22,19 @@ function DeleteSample({ids, setIds, handleSubmit, handleChange}){
     }, []);
     if(ids.length){
     return (
-        <div>
-            <form onSubmit={(e) => handleSubmit(e, "delete")}>
+        <div className="select">
+            <Form onSubmit={(e) => handleSubmit(e, "delete")}>
                 <div className="ccode">
-                    <label htmlFor="delete">Select a test to Delete</label>
-                    <select onChange={(e) => handleChange(e, "delete")} name="delete" id="delete">
+                    <Form.Label htmlFor="delete">Select a test to Delete</Form.Label>
+                    <Form.Select onChange={(e) => handleChange(e, "delete")} name="delete" id="delete">
                         <option value="default">-Select a Test-</option>
                         {ids.map((id) => <option key={id._id} value={id.sampleid}>{id.sampleid}</option>)}
-                    </select>
+                    </Form.Select>
                 </div>
                 <div>
-                    <button type="submit">Submit</button>
+                    <Button variant="primary" type="submit">Submit</Button>
                 </div>
-            </form>
+            </Form>
             <div>
             
             </div>
