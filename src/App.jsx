@@ -33,6 +33,7 @@ function App() {
   const [viewSamples, setViewSamples] = useState([]);
   const [testResult, setTestResult] = useState({});
   const [lookupResult, setLookupResult] = useState("")
+  const [data, setData] = useState(false)
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -50,8 +51,7 @@ function App() {
         ...currentState[sampleid],
         [name]: value
       }
-    }));
-  }
+    }));  }
 
   //handlesChanges
   function handleChange(e, input){
@@ -208,26 +208,7 @@ function App() {
             'Authorization': `Bearer ${token}`
         }})
       if(response.data){
-        const samples = response.data
-
-        console.log(response.data);
-        let object = {};
-        samples.forEach((sample) => {
-          const sampleid = sample.sampleid.sampleid;
-          const tests = sample.tests;
-          tests.forEach((test) => {
-            const name = test.name;
-            const result = test.result;
-            object = {
-              ...object,
-              [sampleid]: {
-                ...object[sampleid],
-                [name]: result
-              }
-            };
-          });
-        });
-        setTestResult(object);
+        setViewSamples(response.data);
       }
 
     }catch(err){

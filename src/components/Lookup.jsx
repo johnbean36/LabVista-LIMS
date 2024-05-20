@@ -18,23 +18,33 @@ function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResu
 
   useEffect(()=>{
     const fetchData = ()=>{
-      if(viewSamples.length){
-        let vSamples = viewSamples;
-        let Obj = {};
-        vSamples.forEach((test)=>{
-          if(test.result===null){
-            Obj[test.name] = "";
-          }
-          else{
-            Obj[test.name] = test.result;
+      let Obj = {};
+      console.log(viewSamples)
+      let vSamples = viewSamples;
+      const testR = testResult;
+      Obj = {
+        ...testR
+      }
+      vSamples.forEach((sample)=>{
+      const tests = sample.tests;
+        tests.forEach((test)=>{
+          const name = test.name;
+          const result = test.result;
+          const sampleid = sample.sampleid.sampleid;
+          const testR = testResult
+          Obj = {
+            ...Obj, [sampleid]:{
+              ...Obj[sampleid],
+              [name]: result
+            }
           }
         })
-        setTestResult(Obj);
-      }      
- 
+      })
+      console.log(Obj);
+      setTestResult(Obj);
     };
     fetchData()
-  },[setViewSamples])
+  },[viewSamples])
 
   if (ids.length) {
     return (
@@ -61,7 +71,7 @@ function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResu
                   <div key={sample.sampleid._id}>
                     <form onSubmit={(e)=>(handleSubmit(e, "update"))}>
                     <div className="margin">Sample Id: {sample.sampleid.sampleid}</div>
-                    <div>{sample.tests.map((test)=>(<div key={test._id}><div></div><div>{test.name}</div><input name={test.name} data-id={sample.sampleid.sampleid} onChange={handleChangeTests} value={testResult[test.name]} /><div></div></div>))}</div>
+                    <div>{sample.tests.map((test)=>(<div key={test._id}><div></div><div>{test.name}</div><input name={test.name} data-id={sample.sampleid.sampleid} onChange={handleChangeTests} value={testResult[sample.sampleid.sampleid][test.name]} /><div></div></div>))}</div>
                     <button type="submit">Submit</button>
                     </form>
                   </div>
