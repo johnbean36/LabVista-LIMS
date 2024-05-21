@@ -4,7 +4,15 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Button} from 'react-bootstrap';
 
-function Overdue({ handleSubmit, setTests, tests, handleChange, dueList }) {
+function Overdue({ handleSubmit, setTests, tests, handleChange, dueList, setDueList }) {
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setDueList([]);
+        };
+        fetchData();
+    }, []);
+    
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem('token');

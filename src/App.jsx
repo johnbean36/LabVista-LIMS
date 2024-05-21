@@ -33,7 +33,6 @@ function App() {
   const [viewSamples, setViewSamples] = useState([]);
   const [testResult, setTestResult] = useState({});
   const [lookupResult, setLookupResult] = useState("")
-  const [data, setData] = useState(false)
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -298,6 +297,7 @@ function App() {
                                           tests={tests}
                                           handleChange={handleChange}
                                           dueList={dueList}
+                                          setDueList={setDueList}
                                             />} />
           <Route path='/delete' element={ <Delete
                                           handleSubmit={handleSubmit}

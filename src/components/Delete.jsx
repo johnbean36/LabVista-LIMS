@@ -20,6 +20,7 @@ function DeleteSample({ids, setIds, handleSubmit, handleChange, error}){
         };
         fetchData();
     }, []);
+    
     if(ids.length){
         return (
             <div className="delete">
