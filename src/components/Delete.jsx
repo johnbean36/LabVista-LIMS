@@ -24,6 +24,7 @@ function DeleteSample({ids, setIds, handleSubmit, handleChange, error}){
     if(ids.length){
         return (
             <div className="delete">
+                <div className="select"><h1>Delete Samples</h1></div>
                 <div className="select">
                     <Form onSubmit={(e) => handleSubmit(e, "delete")}>
                         <div className="ccode">

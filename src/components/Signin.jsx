@@ -5,6 +5,9 @@ function Signin({userEmail, handleChange, password, handleSubmit, error}){
     return (
         <div>
             <div className="margin select">
+                <h1>Sign In</h1>
+            </div>
+            <div className="margin select">
                 <Form onSubmit={(e)=>(handleSubmit(e, "signin"))} >
                     <Form.Group as={Row} className="mb-3 justify-content-center">
                         <Form.Label column sm="5" htmlFor="email">Enter your email: </Form.Label>

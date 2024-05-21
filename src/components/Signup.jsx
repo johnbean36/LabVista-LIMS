@@ -4,7 +4,7 @@ import {Form, Button, Row, Col} from 'react-bootstrap';
 
 function Signup({userName, handleChange, userEmail, password, confirm, handleSubmit, error}){
     return (
-        <div>
+        <div className="margin select">
             <h1>Sign Up</h1>
             <div className="margin select">
                 <Form onSubmit={(e)=>(handleSubmit(e, "signup"))} >

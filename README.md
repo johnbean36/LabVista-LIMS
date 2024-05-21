@@ -86,7 +86,7 @@ Starting off the project involves writing out the Readme.md, Creating a Trello B
 
 #### Screenshot
 
----
+![Screenshot 1](image.jpg)
 
 #### Credits
 React Bootstrap guide: https://react-bootstrap.netlify.app/docs/forms/overview

@@ -51,6 +51,7 @@ function SampleLog({setCustData, setTests, setCommodity, tests, loginResponse, c
     
     return (
         <div>
+            <div className="margin select"><h1>Register Samples</h1></div>
             <div className="margin">
             <Form onSubmit={(e)=>(handleSubmit(e, "samplelogin"))}>
                 <div className="loginfields">

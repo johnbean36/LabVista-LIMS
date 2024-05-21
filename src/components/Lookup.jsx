@@ -52,6 +52,7 @@ function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResu
   if (ids.length) {
     return (
       <div>
+        <div className="select"><h1>Lookup and Update Samples</h1></div>
         <div className="select">
           <Form className="margin" onSubmit={(e) => handleSubmit(e, "lookup")}>
             <div className="ccode">
