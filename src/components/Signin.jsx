@@ -7,15 +7,15 @@ function Signin({userEmail, handleChange, password, handleSubmit, error}){
             <div className="margin select">
                 <Form onSubmit={(e)=>(handleSubmit(e, "signin"))} >
                     <Form.Group as={Row} className="mb-3 justify-content-center">
-                        <div><Form.Label column sm="5" htmlFor="email">Enter your email: </Form.Label></div>
+                        <Form.Label column sm="5" htmlFor="email">Enter your email: </Form.Label>
                         <Col sm="10">
-                            <div><Form.Control type="email" id="email" value={userEmail} onChange={(e)=>(handleChange(e, "email"))} /></div>
+                            <Form.Control type="email" id="email" value={userEmail} onChange={(e)=>(handleChange(e, "email"))} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3 justify-content-center">
-                        <div><Form.Label column sm="5" htmlFor="password">Enter a password: </Form.Label></div>
+                        <Form.Label column sm="5" htmlFor="password">Enter a password: </Form.Label>
                         <Col sm="10">
-                            <div><Form.Control type="password" id="password" value={password} onChange={(e)=>(handleChange(e, "password"))} /></div>
+                            <Form.Control type="password" id="password" value={password} onChange={(e)=>(handleChange(e, "password"))} />
                         </Col>
                     </Form.Group>
                     <Form.Group>
