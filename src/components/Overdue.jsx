@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import axios from 'axios';
 import '../App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Form, Button} from 'react-bootstrap';
 
 function Overdue({ handleSubmit, setTests, tests, handleChange, dueList }) {
     useEffect(() => {
@@ -22,20 +24,20 @@ function Overdue({ handleSubmit, setTests, tests, handleChange, dueList }) {
 
     return (
         <div>
-            <form onSubmit={(e) => handleSubmit(e, "overdue")}>
+            <Form onSubmit={(e) => handleSubmit(e, "overdue")}>
                 <div className="ccode">
-                    <label htmlFor="overdue">Commodity Code</label>
-                    <select onChange={(e) => handleChange(e, "overdue")} name="overdue" id="overdue">
+                    <Form.Label htmlFor="overdue">Commodity Code</Form.Label>
+                    <Form.Select onChange={(e) => handleChange(e, "overdue")} name="overdue" id="overdue">
                         <option value="default">-Select a Commodity-</option>
                         {tests.map((test) => (
                             <option key={test._id} value={test.name}>{test.name}</option>
                         ))}
-                    </select>
+                    </Form.Select>
                 </div>
                 <div>
-                    <button type="submit">Submit</button>
+                    <Button variant="primary" type="submit">Submit</Button>
                 </div>
-            </form>
+            </Form>
             <div className="">
             {dueList.length ? (
                 <div className="margin">

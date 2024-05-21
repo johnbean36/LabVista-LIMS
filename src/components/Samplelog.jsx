@@ -4,6 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Select, Space, Spin } from 'antd';
 const { Option } =  Select;
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Form, Button} from 'react-bootstrap';
 import '../App.css';
 let tOptions;
 
@@ -50,27 +52,27 @@ function SampleLog({setCustData, setTests, setCommodity, tests, loginResponse, c
     return (
         <div>
             <div className="margin">
-            <form onSubmit={(e)=>(handleSubmit(e, "samplelogin"))}>
+            <Form onSubmit={(e)=>(handleSubmit(e, "samplelogin"))}>
                 <div className="loginfields">
                     <div className="ccode">
-                        <label htmlFor="ccode">Commodity Code</label>
-                        <select onChange={(e)=>(handleChange(e, "ccode"))} name="ccode" id="ccode">
+                        <Form.Label htmlFor="ccode">Commodity Code</Form.Label>
+                        <Form.Select onChange={(e)=>(handleChange(e, "ccode"))} name="ccode" id="ccode">
                         <option value="default">-Select a Commodity-</option>
                         {commodity.map((comm)=> (<option key={comm._id} text={comm.desc} value={comm.code}>{comm.code}-{comm.desc}</option>))}
-                        </select>
+                        </Form.Select>
                     </div>
                     <div className="ccode">
-                        <label htmlFor="dateselect">Select a Login Date</label>
-                        <DatePicker selected={startDate} id="dateselect" onChange={(date)=> setStartDate(date)} placeholderText="Select a date" dateFormat="yyyy-MM-dd" />
+                        <Form.Label htmlFor="dateselect">Select a Login Date</Form.Label>
+                        <DatePicker selected={startDate} id="dateselect" onChange={(date)=> setStartDate(date)} placeholderText="Select a date" dateFormat="yyyy-MM-dd" className="form-control" autoComplete="off" />
                     </div>
                     <div className="ccode">
-                        <label htmlFor="custcode">Customer Code</label>
-                        <select onChange={(e)=>(handleChange(e, "custcode"))} name="custcode" id="custcode">
+                        <Form.Label htmlFor="custcode">Customer Code</Form.Label>
+                        <Form.Select onChange={(e)=>(handleChange(e, "custcode"))} name="custcode" id="custcode">
                             <option value="default">--Select a Customer Code</option>
                             {custData.map((cust)=> (<option key={cust._id} value={cust.code}>{cust.code}</option>))}
-                        </select>
+                        </Form.Select>
                     </div>
-                    <div className="margin">
+                    <div className="margin-select">
                         <Select
                             mode="multiple"
                             allowClear
@@ -84,9 +86,9 @@ function SampleLog({setCustData, setTests, setCommodity, tests, loginResponse, c
                     </div>
                 </div>
                 <div>
-                <button type="submit">Submit</button>
+                <Button type="submit">Submit</Button>
                 </div>
-            </form>
+            </Form>
             </div>
             <div>
                 <div>{loginResponse.length ? (<div>{loginResponse.map((sample)=>(<div key={sample.sampleid._id}>Sample id(s) logged in: {sample.sampleid.sampleid}</div>))}</div>): (<div></div>)}</div>

@@ -77,7 +77,7 @@ function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResu
                       <div className="margin">Sample Id: {sample.sampleid.sampleid}</div>
                       <div>
                         {sample.tests.map((test) => (
-                          <div key={test._id}>
+                          <div key={test._id} className="tests">
                             <div>{test.name}</div>
                             <InputGroup>
                             <Form.Control
@@ -86,12 +86,14 @@ function Lookup({ handleSubmit, handleChange, ids, setIds, viewSamples, testResu
                               onChange={handleChangeTests}
                               value={testResult[sample.sampleid.sampleid]?.[test.name] || ''}
                             />
-                            <Button variant="primary" type="submit">Submit</Button>
+                            
                             </InputGroup>
                           </div>
                         ))}
                       </div>
-                      
+                      <div className="margin">
+                        <Button variant="primary" type="submit">Submit</Button>
+                      </div>
                     </Form>
                   </div>
                 ))}

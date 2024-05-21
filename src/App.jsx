@@ -224,6 +224,7 @@ function App() {
         }
         const responsedata = response.data;
         setViewSamples(responsedata);
+        setError("");
       }
     }catch(err){
       console.log(err);

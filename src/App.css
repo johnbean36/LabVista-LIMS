@@ -75,7 +75,11 @@
 }
 
 .margin {
-  margin-top: 5.2vmin;
+  margin-top: 4vmin;
+}
+
+.margin-select {
+  margin-top: 7.1vmin;
 }
 
 .select {
@@ -86,4 +90,8 @@
 .delete {
   display: flex;
   flex-direction: column;
+}
+
+.tests {
+  margin-top: 3vmin;
 }

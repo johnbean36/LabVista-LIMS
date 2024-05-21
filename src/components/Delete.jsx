@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import axios from 'axios';
 import '../App.css';
-import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Form, InputGroup} from 'react-bootstrap';
+import {Form, Button} from 'react-bootstrap';
 import Error from './Error'
 let response;
 
