@@ -82,11 +82,19 @@ Starting off the project involves writing out the Readme.md, Creating a Trello B
 
 #### Future Updates
 
+I will work on finishing the Validate Samples component and your Reports Component
+
 ---
 
 #### Screenshot
 
-![Screenshot 1](image.jpg)
+[Register Samples](https://i.imgur.com/5YAwuHy.png)
+  
+[Delete Samples](https://i.imgur.com/QF3cZOe.png)
+  
+[Overdue List](https://i.imgur.com/dGbEn8p.png)
+  
+[Lookup and Update](https://i.imgur.com/QhyelNO.png)
 
 #### Credits
 React Bootstrap guide: https://react-bootstrap.netlify.app/docs/forms/overview
